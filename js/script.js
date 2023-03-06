@@ -5,6 +5,9 @@ const btns = document.querySelectorAll('.grid-size');
 function start(){
     makeGrid(16);
     changeGridSize();
+    
+    const eraseButton = document.querySelector('#erase');
+    eraseButton.addEventListener('click', () => {eraseAll()})
 }
 
 function makeGrid(gridSize) {
@@ -14,7 +17,6 @@ function makeGrid(gridSize) {
         let cell = document.createElement("div");
         container.appendChild(cell).className = "grid-item";
     };
-
     draw();
 }
 
@@ -26,19 +28,23 @@ function draw() {
     });
 }
 
-function eraseAll() {
+function deleteGrid() {
     const grids = document.querySelectorAll('.grid-item');
     grids.forEach((grid) => {grid.remove()});
-
 }
 
 function changeGridSize() {
     btns.forEach((btn) => {btn.addEventListener('click', () => {
         gridSize = parseInt(btn.id);
-        eraseAll();
+        deleteGrid();
         makeGrid(gridSize);
     });
     });
+}
+
+function eraseAll() {
+    const grids = document.querySelectorAll('.grid-item');
+    grids.forEach((grid => {grid.style.backgroundColor = 'pink'}));
 }
 
 start();
